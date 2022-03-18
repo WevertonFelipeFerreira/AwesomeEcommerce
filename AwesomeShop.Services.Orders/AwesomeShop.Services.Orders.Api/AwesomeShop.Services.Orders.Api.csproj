@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AwesomeShop.Services.Orders.Application\AwesomeShop.Services.Orders.Application.csproj" />
     <ProjectReference Include="..\AwesomeShop.Services.Orders.Core\AwesomeShop.Services.Orders.Core.csproj" />
   </ItemGroup>
 

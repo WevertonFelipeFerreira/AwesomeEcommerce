@@ -5,9 +5,9 @@ namespace AwesomeShop.Services.Orders.Core.Entities
 {
     public class OrderItem : IEntitieBase
     {
-        public OrderItem(Guid id, Guid productId, int quantity, decimal price)
+        public OrderItem(Guid productId, int quantity, decimal price)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             ProductId = productId;
             Quantity = quantity;
             Price = price;
