@@ -22,6 +22,7 @@ namespace AwesomeShop.Services.Orders.Api
         {
 
             services.AddControllers();
+            services.AddDependencyInjection();
             services.AddHandlers();
             services.AddSwaggerGen(c =>
             {
