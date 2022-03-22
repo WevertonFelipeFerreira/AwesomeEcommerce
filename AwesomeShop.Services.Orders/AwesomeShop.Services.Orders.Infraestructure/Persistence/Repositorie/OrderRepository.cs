@@ -1,11 +1,9 @@
 ﻿using AwesomeShop.Services.Orders.Core.Entities;
+using AwesomeShop.Services.Orders.Core.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace AwesomeShop.Services.Orders.Core.Repositories
+namespace AwesomeShop.Services.Orders.Infraestructure.Persistence.Repositorie
 {
     public class OrderRepository : IOrderRepository
     {
