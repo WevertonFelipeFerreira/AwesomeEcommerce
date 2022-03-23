@@ -1,4 +1,5 @@
 using AwesomeShop.Services.Orders.Application;
+using AwesomeShop.Services.Orders.Infraestructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,8 +23,11 @@ namespace AwesomeShop.Services.Orders.Api
         {
 
             services.AddControllers();
-            services.AddDependencyInjection();
-            services.AddHandlers();
+
+            services.AddRepositories()
+                 .AddHandlers()
+                 .AddMongo();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AwesomeShop.Services.Orders.Api", Version = "v1" });
