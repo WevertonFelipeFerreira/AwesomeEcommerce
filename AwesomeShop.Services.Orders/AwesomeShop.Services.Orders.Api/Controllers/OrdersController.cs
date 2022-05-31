@@ -1,14 +1,15 @@
-﻿using AwesomeShop.Services.Orders.Application.Commands;
+using System;
+using System.Threading.Tasks;
+using AwesomeShop.Services.Orders.Application.Commands;
 using AwesomeShop.Services.Orders.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace AwesomeShop.Services.Orders.Api.Controllers
 {
-    [ApiController]
+    // [Route("api/customers/{customerId}/orders")]
     [Route("api/orders")]
+    [ApiController]
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,25 +19,22 @@ namespace AwesomeShop.Services.Orders.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
-        {
+        public async Task<IActionResult> Get(Guid id) {
             var query = new GetOrderById(id);
+
             var result = await _mediator.Send(query);
 
-            if(result is null)
-            {
+            if (result == null)
                 return NotFound();
-            }
 
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddOrder command)
-        {
+        public async Task<IActionResult> Post([FromBody] AddOrder command) {
             var id = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById),new {id = id}, id);
+            return CreatedAtAction(nameof(Get), new { id = id }, command);
         }
     }
 }

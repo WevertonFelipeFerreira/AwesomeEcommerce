@@ -1,6 +1,6 @@
-﻿using AwesomeShop.Services.Orders.Core.Entities;
 using System;
 using System.Threading.Tasks;
+using AwesomeShop.Services.Orders.Core.Entities;
 
 namespace AwesomeShop.Services.Orders.Core.Repositories
 {

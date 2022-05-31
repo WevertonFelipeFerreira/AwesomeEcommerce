@@ -1,7 +1,7 @@
-﻿using AwesomeShop.Services.Orders.Core.Entities;
 using System;
+using AwesomeShop.Services.Orders.Core.Entities;
 
-namespace AwesomeShop.Services.Orders.Application.DTOs.ViewModels
+namespace AwesomeShop.Services.Orders.Application.Dtos.ViewModels
 {
     public class OrderViewModel
     {
@@ -10,16 +10,15 @@ namespace AwesomeShop.Services.Orders.Application.DTOs.ViewModels
             Id = id;
             TotalPrice = totalPrice;
             CreatedAt = createdAt;
-            Status = status;
+            this.status = status;
         }
 
         public Guid Id { get; private set; }
         public decimal TotalPrice { get; private set; }
         public DateTime CreatedAt { get; private set; }
-        public string Status { get; private set; }
+        public string status { get; private set; }
 
-        public static OrderViewModel FromEntity(Order order)
-        {
+        public static OrderViewModel FromEntity(Order order) {
             return new OrderViewModel(order.Id, order.TotalPrice, order.CreatedAt, order.Status.ToString());
         }
     }

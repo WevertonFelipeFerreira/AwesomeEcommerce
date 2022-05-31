@@ -1,9 +1,8 @@
-﻿using AwesomeShop.Services.Orders.Core.Entities.Common;
 using System;
 
 namespace AwesomeShop.Services.Orders.Core.Entities
 {
-    public class Customer : IEntitieBase
+    public class Customer : IEntityBase
     {
         public Customer(Guid id, string fullName, string email)
         {
@@ -11,10 +10,9 @@ namespace AwesomeShop.Services.Orders.Core.Entities
             FullName = fullName;
             Email = email;
         }
-
+        
         public Guid Id { get; private set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-
+        public string FullName { get; private set; }
+        public string Email { get; private set; }
     }
 }

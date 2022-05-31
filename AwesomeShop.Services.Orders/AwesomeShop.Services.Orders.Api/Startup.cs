@@ -1,10 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AwesomeShop.Services.Orders.Application;
-using AwesomeShop.Services.Orders.Infraestructure;
+using AwesomeShop.Services.Orders.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace AwesomeShop.Services.Orders.Api
@@ -21,16 +28,21 @@ namespace AwesomeShop.Services.Orders.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddRedisCache()
+                .AddMessageBus()
+                .AddMongo()
+                .AddRepositories()
+                .AddHandlers()
+                .AddSubscribers()
+                .AddConsulConfig(Configuration);
+                
+            services.AddHttpClient();
 
             services.AddControllers();
-
-            services.AddRepositories()
-                 .AddHandlers()
-                 .AddMongo();
-
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AwesomeShop.Services.Orders.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "AwesomeShop.Services.Orders.Api", Version = "v1"});
             });
         }
 
@@ -41,19 +53,17 @@ namespace AwesomeShop.Services.Orders.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AwesomeShop.Services.Orders.Api v1"));
+                app.UseSwaggerUI(c =>
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "AwesomeShop.Services.Orders.Api v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseConsul();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

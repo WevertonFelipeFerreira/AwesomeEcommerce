@@ -1,6 +1,6 @@
-﻿using AwesomeShop.Services.Orders.Application.DTOs.ViewModels;
-using MediatR;
 using System;
+using AwesomeShop.Services.Orders.Application.Dtos.ViewModels;
+using MediatR;
 
 namespace AwesomeShop.Services.Orders.Application.Queries
 {
@@ -10,7 +10,7 @@ namespace AwesomeShop.Services.Orders.Application.Queries
         {
             Id = id;
         }
-
+        
         public Guid Id { get; private set; }
     }
 }

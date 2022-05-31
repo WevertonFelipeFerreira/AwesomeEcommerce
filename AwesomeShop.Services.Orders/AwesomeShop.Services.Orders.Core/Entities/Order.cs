@@ -1,10 +1,9 @@
-﻿using AwesomeShop.Services.Orders.Core.Entities.Common;
-using AwesomeShop.Services.Orders.Core.Enums;
-using AwesomeShop.Services.Orders.Core.Events;
-using AwesomeShop.Services.Orders.Core.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AwesomeShop.Services.Orders.Core.Enums;
+using AwesomeShop.Services.Orders.Core.Events;
+using AwesomeShop.Services.Orders.Core.ValueObjects;
 
 namespace AwesomeShop.Services.Orders.Core.Entities
 {
@@ -20,10 +19,10 @@ namespace AwesomeShop.Services.Orders.Core.Entities
             PaymentInfo = paymentInfo;
             Items = items;
             Status = OrderStatus.Started;
-
+            
             CreatedAt = DateTime.Now;
 
-            AddEvent(new OrderCreated(Id, TotalPrice, paymentInfo, customer.FullName, customer.Email));
+            AddEvent(new OrderCreated(Id, TotalPrice, paymentInfo, Customer.FullName, Customer.Email));
         }
 
         public decimal TotalPrice { get; private set; }
@@ -33,14 +32,13 @@ namespace AwesomeShop.Services.Orders.Core.Entities
         public PaymentInfo PaymentInfo { get; private set; }
         public List<OrderItem> Items { get; private set; }
         public DateTime CreatedAt { get; private set; }
-        public OrderStatus Status { get; set; }
+        public OrderStatus Status { get; private set; }
 
-        private void SetAsComplete()
-        {
+        public void SetAsCompleted() {
             Status = OrderStatus.Completed;
         }
-        private void SetAsRejected()
-        {
+
+        public void SetAsRejected() {
             Status = OrderStatus.Rejected;
         }
     }
